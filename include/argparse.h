@@ -26,7 +26,7 @@
 
 /* Command-line argument parsing utility library */
 
-#include "corto/corto.h"
+#include <corto/corto.h>
 
 #ifdef __cplusplus
 extern "C" {
