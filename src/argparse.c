@@ -44,6 +44,10 @@ corto_argdata* corto_argparse(char *argv[], corto_argdata *data) {
 
     corto_arginit(data);
 
+    if (!argv) {
+        return data;
+    }
+
     while ((arg = argv[a])) {
         corto_int32 p = 0;
         corto_bool match = FALSE;
