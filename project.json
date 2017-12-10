@@ -1,0 +1,13 @@
+{
+    "id": "corto/argparse",
+    "type": "package",
+    "value": {
+        "author": "Sander Mertens",
+        "organization": "cortoproject",
+        "repository": "https://github.com/cortoproject/argparse",
+        "license": "MIT",        
+        "description": "Utility for parsing commandline arguments",
+        "managed": false,
+        "use": ["corto"]
+    }
+}

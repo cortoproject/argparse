@@ -1,4 +1,4 @@
-/* Copyright (c) 2010-2017 the corto developers
+/* Copyright (c) 2010-2018 the corto developers
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -70,9 +70,9 @@ corto_argdata* corto_argparse(char *argv[], corto_argdata *data) {
                 /* '$' Indicates constraint */
                 if (pattern->pattern[0] == '$') {
                     corto_int32 matchCount = pattern->match ?
-                        *pattern->match ? corto_ll_size(*pattern->match) : 0 : 0;
+                        *pattern->match ? corto_ll_count(*pattern->match) : 0 : 0;
                     corto_int32 argCount = pattern->args ?
-                        *pattern->args ? corto_ll_size(*pattern->args) : 0 : 0;
+                        *pattern->args ? corto_ll_count(*pattern->args) : 0 : 0;
 
                     /* | can be used with + or ? to indicate an OR relationship
                      * between multiple AT LEAST/AT MOST once patterns */
@@ -166,12 +166,12 @@ corto_argdata* corto_argparse(char *argv[], corto_argdata *data) {
                         corto_ll_append(*(pattern->args), prev);
                     } while (ptr && ++ptr);
                 } else {
-                    corto_seterr("missing argument for option %s", arg);
+                    corto_throw("missing argument for option %s", arg);
                     goto error;
                 }
             }
         } else {
-            corto_seterr("unknown option '%s'", arg);
+            corto_throw("unknown option '%s'", arg);
             goto error;
         }
         a++;
