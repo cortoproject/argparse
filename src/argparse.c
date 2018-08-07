@@ -19,7 +19,7 @@
  * THE SOFTWARE.
  */
 
-#include "corto/argparse/argparse.h"
+#include "corto/util/argparse/argparse.h"
 
 static void corto_arginit(corto_argdata *data) {
     corto_argdata *pattern = NULL;
