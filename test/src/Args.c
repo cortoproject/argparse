@@ -6,7 +6,7 @@ void test_Args_tc_matchAddNoProject(
     test_Args this)
 {
     char *argv[] = {"add", "::corto::test", "--silent", NULL};
-    corto_ll project, packages, silent;
+    ut_ll project, packages, silent;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -25,11 +25,11 @@ void test_Args_tc_matchAddNoProject(
     test_assert(project == NULL);
     test_assert(packages != NULL);
 
-    test_assert(corto_ll_count(silent) == 1);
-    test_assert(corto_ll_count(packages) == 1);
+    test_assert(ut_ll_count(silent) == 1);
+    test_assert(ut_ll_count(packages) == 1);
 
-    test_assertstr(corto_ll_get(silent, 0), "--silent");
-    test_assertstr(corto_ll_get(packages, 0), "::corto::test");
+    test_assertstr(ut_ll_get(silent, 0), "--silent");
+    test_assertstr(ut_ll_get(packages, 0), "::corto::test");
 
     corto_argclean(data);
 
@@ -39,7 +39,7 @@ void test_Args_tc_matchAll(
     test_Args this)
 {
     char *argv[] = {"abc", "def", "-g", "--hi", NULL};
-    corto_ll args;
+    ut_ll args;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -52,11 +52,11 @@ void test_Args_tc_matchAll(
 
     test_assert(data != NULL);
     test_assert(args != NULL);
-    test_assert(corto_ll_count(args) == 4);
-    test_assert(!strcmp(corto_ll_get(args, 0), "abc"));
-    test_assert(!strcmp(corto_ll_get(args, 1), "def"));
-    test_assert(!strcmp(corto_ll_get(args, 2), "-g"));
-    test_assert(!strcmp(corto_ll_get(args, 3), "--hi"));
+    test_assert(ut_ll_count(args) == 4);
+    test_assert(!strcmp(ut_ll_get(args, 0), "abc"));
+    test_assert(!strcmp(ut_ll_get(args, 1), "def"));
+    test_assert(!strcmp(ut_ll_get(args, 2), "-g"));
+    test_assert(!strcmp(ut_ll_get(args, 3), "--hi"));
 
     corto_argclean(data);
 
@@ -66,7 +66,7 @@ void test_Args_tc_matchCreate(
     test_Args this)
 {
     char *argv[] = {"create", "MyApp", NULL};
-    corto_ll app, package, component, silent, notest, local;
+    ut_ll app, package, component, silent, notest, local;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -86,8 +86,8 @@ void test_Args_tc_matchCreate(
     test_assert(data != NULL);
 
     test_assert(app != NULL);
-    test_assert(corto_ll_count(app) == 1);
-    test_assert(!strcmp(corto_ll_get(app, 0), "MyApp"));
+    test_assert(ut_ll_count(app) == 1);
+    test_assert(!strcmp(ut_ll_get(app, 0), "MyApp"));
 
     test_assert(package == NULL);
     test_assert(component == NULL);
@@ -103,7 +103,7 @@ void test_Args_tc_matchCreateApp(
     test_Args this)
 {
     char *argv[] = {"create", "app", "MyApp", NULL};
-    corto_ll app, package, component, silent, notest, local;
+    ut_ll app, package, component, silent, notest, local;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -123,8 +123,8 @@ void test_Args_tc_matchCreateApp(
     test_assert(data != NULL);
 
     test_assert(app != NULL);
-    test_assert(corto_ll_count(app) == 1);
-    test_assert(!strcmp(corto_ll_get(app, 0), "MyApp"));
+    test_assert(ut_ll_count(app) == 1);
+    test_assert(!strcmp(ut_ll_get(app, 0), "MyApp"));
 
     test_assert(package == NULL);
     test_assert(component == NULL);
@@ -140,7 +140,7 @@ void test_Args_tc_matchCreateMultiple(
     test_Args this)
 {
     char *argv[] = {"create", "app", "MyApp1", "MyApp2", NULL};
-    corto_ll app, package, component, silent, notest, local;
+    ut_ll app, package, component, silent, notest, local;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -160,9 +160,9 @@ void test_Args_tc_matchCreateMultiple(
     test_assert(data != NULL);
 
     test_assert(app != NULL);
-    test_assert(corto_ll_count(app) == 2);
-    test_assert(!strcmp(corto_ll_get(app, 0), "MyApp1"));
-    test_assert(!strcmp(corto_ll_get(app, 1), "MyApp2"));
+    test_assert(ut_ll_count(app) == 2);
+    test_assert(!strcmp(ut_ll_get(app, 0), "MyApp1"));
+    test_assert(!strcmp(ut_ll_get(app, 1), "MyApp2"));
 
     test_assert(package == NULL);
     test_assert(component == NULL);
@@ -178,7 +178,7 @@ void test_Args_tc_matchCreatePackage(
     test_Args this)
 {
     char *argv[] = {"create", "package", "myPackage", NULL};
-    corto_ll app, package, component, silent, notest, local;
+    ut_ll app, package, component, silent, notest, local;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -198,8 +198,8 @@ void test_Args_tc_matchCreatePackage(
     test_assert(data != NULL);
 
     test_assert(package != NULL);
-    test_assert(corto_ll_count(package) == 1);
-    test_assert(!strcmp(corto_ll_get(package, 0), "myPackage"));
+    test_assert(ut_ll_count(package) == 1);
+    test_assert(!strcmp(ut_ll_get(package, 0), "myPackage"));
 
     test_assert(app == NULL);
     test_assert(component == NULL);
@@ -215,7 +215,7 @@ void test_Args_tc_matchCreatePackageAndApp(
     test_Args this)
 {
     char *argv[] = {"create", "package", "myPackage", "app", "MyApp", NULL};
-    corto_ll app, package, component, silent, notest, local;
+    ut_ll app, package, component, silent, notest, local;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -235,12 +235,12 @@ void test_Args_tc_matchCreatePackageAndApp(
     test_assert(data != NULL);
 
     test_assert(package != NULL);
-    test_assert(corto_ll_count(package) == 1);
-    test_assert(!strcmp(corto_ll_get(package, 0), "myPackage"));
+    test_assert(ut_ll_count(package) == 1);
+    test_assert(!strcmp(ut_ll_get(package, 0), "myPackage"));
 
     test_assert(app != NULL);
-    test_assert(corto_ll_count(app) == 1);
-    test_assert(!strcmp(corto_ll_get(app, 0), "MyApp"));
+    test_assert(ut_ll_count(app) == 1);
+    test_assert(!strcmp(ut_ll_get(app, 0), "MyApp"));
 
     test_assert(component == NULL);
     test_assert(silent == NULL);
@@ -255,7 +255,7 @@ void test_Args_tc_matchCreatePackageAndAppEscaped(
     test_Args this)
 {
     char *argv[] = {"create", "package", "package", "app", "app", NULL};
-    corto_ll app, package, component, silent, notest, local;
+    ut_ll app, package, component, silent, notest, local;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -275,12 +275,12 @@ void test_Args_tc_matchCreatePackageAndAppEscaped(
     test_assert(data != NULL);
 
     test_assert(package != NULL);
-    test_assert(corto_ll_count(package) == 1);
-    test_assert(!strcmp(corto_ll_get(package, 0), "package"));
+    test_assert(ut_ll_count(package) == 1);
+    test_assert(!strcmp(ut_ll_get(package, 0), "package"));
 
     test_assert(app != NULL);
-    test_assert(corto_ll_count(app) == 1);
-    test_assert(!strcmp(corto_ll_get(app, 0), "app"));
+    test_assert(ut_ll_count(app) == 1);
+    test_assert(!strcmp(ut_ll_get(app, 0), "app"));
 
     test_assert(component == NULL);
     test_assert(silent == NULL);
@@ -295,7 +295,7 @@ void test_Args_tc_matchCreatePackageOptions(
     test_Args this)
 {
     char *argv[] = {"create", "package", "myPackage", "--silent", "--notest", "--local", NULL};
-    corto_ll app, package, component, silent, notest, local;
+    ut_ll app, package, component, silent, notest, local;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -315,20 +315,20 @@ void test_Args_tc_matchCreatePackageOptions(
     test_assert(data != NULL);
 
     test_assert(package != NULL);
-    test_assert(corto_ll_count(package) == 1);
-    test_assert(!strcmp(corto_ll_get(package, 0), "myPackage"));
+    test_assert(ut_ll_count(package) == 1);
+    test_assert(!strcmp(ut_ll_get(package, 0), "myPackage"));
 
     test_assert(silent != NULL);
-    test_assert(corto_ll_count(silent) == 1);
-    test_assert(!strcmp(corto_ll_get(silent, 0), "--silent"));
+    test_assert(ut_ll_count(silent) == 1);
+    test_assert(!strcmp(ut_ll_get(silent, 0), "--silent"));
 
     test_assert(notest != NULL);
-    test_assert(corto_ll_count(notest) == 1);
-    test_assert(!strcmp(corto_ll_get(notest, 0), "--notest"));
+    test_assert(ut_ll_count(notest) == 1);
+    test_assert(!strcmp(ut_ll_get(notest, 0), "--notest"));
 
     test_assert(local != NULL);
-    test_assert(corto_ll_count(local) == 1);
-    test_assert(!strcmp(corto_ll_get(local, 0), "--local"));
+    test_assert(ut_ll_count(local) == 1);
+    test_assert(!strcmp(ut_ll_get(local, 0), "--local"));
 
     test_assert(app == NULL);
     test_assert(component == NULL);
@@ -341,7 +341,7 @@ void test_Args_tc_matchDuplicate(
     test_Args this)
 {
     char *argv[] = {"abc", "def", "abc", "def", NULL};
-    corto_ll abc, def;
+    ut_ll abc, def;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -355,15 +355,15 @@ void test_Args_tc_matchDuplicate(
     test_assert(data != NULL);
 
     test_assert(abc != NULL);
-    test_assert(corto_ll_count(abc) == 2);
+    test_assert(ut_ll_count(abc) == 2);
 
     test_assert(def != NULL);
-    test_assert(corto_ll_count(def) == 2);
+    test_assert(ut_ll_count(def) == 2);
 
-    test_assert(!strcmp(corto_ll_get(abc, 0), "abc"));
-    test_assert(!strcmp(corto_ll_get(abc, 1), "abc"));
-    test_assert(!strcmp(corto_ll_get(def, 0), "def"));
-    test_assert(!strcmp(corto_ll_get(def, 1), "def"));
+    test_assert(!strcmp(ut_ll_get(abc, 0), "abc"));
+    test_assert(!strcmp(ut_ll_get(abc, 1), "abc"));
+    test_assert(!strcmp(ut_ll_get(def, 0), "def"));
+    test_assert(!strcmp(ut_ll_get(def, 1), "def"));
 
     corto_argclean(data);
 
@@ -373,7 +373,7 @@ void test_Args_tc_matchDuplicateArg(
     test_Args this)
 {
     char *argv[] = {"--option1", "arg1", "--option1", "arg2", "--option2", "arg3", NULL};
-    corto_ll option1, option2, args1, args2;
+    ut_ll option1, option2, args1, args2;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -387,24 +387,24 @@ void test_Args_tc_matchDuplicateArg(
     test_assert(data != NULL);
 
     test_assert(option1 != NULL);
-    test_assert(corto_ll_count(option1) == 2);
+    test_assert(ut_ll_count(option1) == 2);
 
     test_assert(option2 != NULL);
-    test_assert(corto_ll_count(option2) == 1);
+    test_assert(ut_ll_count(option2) == 1);
 
-    test_assert(!strcmp(corto_ll_get(option1, 0), "--option1"));
-    test_assert(!strcmp(corto_ll_get(option1, 1), "--option1"));
-    test_assert(!strcmp(corto_ll_get(option2, 0), "--option2"));
+    test_assert(!strcmp(ut_ll_get(option1, 0), "--option1"));
+    test_assert(!strcmp(ut_ll_get(option1, 1), "--option1"));
+    test_assert(!strcmp(ut_ll_get(option2, 0), "--option2"));
 
     test_assert(args1 != NULL);
-    test_assert(corto_ll_count(args1) == 2);
+    test_assert(ut_ll_count(args1) == 2);
 
     test_assert(args2 != NULL);
-    test_assert(corto_ll_count(args2) == 1);
+    test_assert(ut_ll_count(args2) == 1);
 
-    test_assert(!strcmp(corto_ll_get(args1, 0), "arg1"));
-    test_assert(!strcmp(corto_ll_get(args1, 1), "arg2"));
-    test_assert(!strcmp(corto_ll_get(args2, 0), "arg3"));
+    test_assert(!strcmp(ut_ll_get(args1, 0), "arg1"));
+    test_assert(!strcmp(ut_ll_get(args1, 1), "arg2"));
+    test_assert(!strcmp(ut_ll_get(args2, 0), "arg3"));
 
     corto_argclean(data);
 
@@ -414,7 +414,7 @@ void test_Args_tc_matchErr(
     test_Args this)
 {
     char *argv[] = {"abc", "def", NULL};
-    corto_ll args;
+    ut_ll args;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -434,7 +434,7 @@ void test_Args_tc_matchFixed(
     test_Args this)
 {
     char *argv[] = {"a", "b", "c", "d", NULL};
-    corto_ll a, b, c, d;
+    ut_ll a, b, c, d;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -450,21 +450,21 @@ void test_Args_tc_matchFixed(
     test_assert(data != NULL);
 
     test_assert(a != NULL);
-    test_assert(corto_ll_count(a) == 1);
+    test_assert(ut_ll_count(a) == 1);
 
     test_assert(b != NULL);
-    test_assert(corto_ll_count(b) == 1);
+    test_assert(ut_ll_count(b) == 1);
 
     test_assert(c != NULL);
-    test_assert(corto_ll_count(c) == 1);
+    test_assert(ut_ll_count(c) == 1);
 
     test_assert(d != NULL);
-    test_assert(corto_ll_count(d) == 1);
+    test_assert(ut_ll_count(d) == 1);
 
-    test_assert(!strcmp(corto_ll_get(a, 0), "a"));
-    test_assert(!strcmp(corto_ll_get(b, 0), "b"));
-    test_assert(!strcmp(corto_ll_get(c, 0), "c"));
-    test_assert(!strcmp(corto_ll_get(d, 0), "d"));
+    test_assert(!strcmp(ut_ll_get(a, 0), "a"));
+    test_assert(!strcmp(ut_ll_get(b, 0), "b"));
+    test_assert(!strcmp(ut_ll_get(c, 0), "c"));
+    test_assert(!strcmp(ut_ll_get(d, 0), "d"));
 
     corto_argclean(data);
 
@@ -474,7 +474,7 @@ void test_Args_tc_matchMultiple(
     test_Args this)
 {
     char *argv[] = {"abc", "def", NULL};
-    corto_ll abc, def;
+    ut_ll abc, def;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -488,13 +488,13 @@ void test_Args_tc_matchMultiple(
     test_assert(data != NULL);
 
     test_assert(abc != NULL);
-    test_assert(corto_ll_count(abc) == 1);
+    test_assert(ut_ll_count(abc) == 1);
 
     test_assert(def != NULL);
-    test_assert(corto_ll_count(def) == 1);
+    test_assert(ut_ll_count(def) == 1);
 
-    test_assert(!strcmp(corto_ll_get(abc, 0), "abc"));
-    test_assert(!strcmp(corto_ll_get(def, 0), "def"));
+    test_assert(!strcmp(ut_ll_get(abc, 0), "abc"));
+    test_assert(!strcmp(ut_ll_get(def, 0), "def"));
 
     corto_argclean(data);
 
@@ -504,7 +504,7 @@ void test_Args_tc_matchMultipleArg(
     test_Args this)
 {
     char *argv[] = {"--option1", "arg1", "--option2", "arg2", NULL};
-    corto_ll option1, option2, args1, args2;
+    ut_ll option1, option2, args1, args2;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -518,22 +518,22 @@ void test_Args_tc_matchMultipleArg(
     test_assert(data != NULL);
 
     test_assert(option1 != NULL);
-    test_assert(corto_ll_count(option1) == 1);
+    test_assert(ut_ll_count(option1) == 1);
 
     test_assert(option2 != NULL);
-    test_assert(corto_ll_count(option2) == 1);
+    test_assert(ut_ll_count(option2) == 1);
 
-    test_assert(!strcmp(corto_ll_get(option1, 0), "--option1"));
-    test_assert(!strcmp(corto_ll_get(option2, 0), "--option2"));
+    test_assert(!strcmp(ut_ll_get(option1, 0), "--option1"));
+    test_assert(!strcmp(ut_ll_get(option2, 0), "--option2"));
 
     test_assert(args1 != NULL);
-    test_assert(corto_ll_count(args1) == 1);
+    test_assert(ut_ll_count(args1) == 1);
 
     test_assert(args2 != NULL);
-    test_assert(corto_ll_count(args2) == 1);
+    test_assert(ut_ll_count(args2) == 1);
 
-    test_assert(!strcmp(corto_ll_get(args1, 0), "arg1"));
-    test_assert(!strcmp(corto_ll_get(args2, 0), "arg2"));
+    test_assert(!strcmp(ut_ll_get(args1, 0), "arg1"));
+    test_assert(!strcmp(ut_ll_get(args2, 0), "arg2"));
 
     corto_argclean(data);
 
@@ -564,7 +564,7 @@ void test_Args_tc_matchOptional(
     test_Args this)
 {
     char *argv[] = {"ab", "cd", "ef", NULL};
-    corto_ll atMostOnce, atLeastOnce;
+    ut_ll atMostOnce, atLeastOnce;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -578,14 +578,14 @@ void test_Args_tc_matchOptional(
     test_assert(data != NULL);
 
     test_assert(atMostOnce != NULL);
-    test_assert(corto_ll_count(atMostOnce) == 1);
+    test_assert(ut_ll_count(atMostOnce) == 1);
 
     test_assert(atLeastOnce != NULL);
-    test_assert(corto_ll_count(atLeastOnce) == 2);
+    test_assert(ut_ll_count(atLeastOnce) == 2);
 
-    test_assert(!strcmp(corto_ll_get(atMostOnce, 0), "ab"));
-    test_assert(!strcmp(corto_ll_get(atLeastOnce, 0), "cd"));
-    test_assert(!strcmp(corto_ll_get(atLeastOnce, 1), "ef"));
+    test_assert(!strcmp(ut_ll_get(atMostOnce, 0), "ab"));
+    test_assert(!strcmp(ut_ll_get(atLeastOnce, 0), "cd"));
+    test_assert(!strcmp(ut_ll_get(atLeastOnce, 1), "ef"));
 
     corto_argclean(data);
 
@@ -595,7 +595,7 @@ void test_Args_tc_matchOptionalOneArg(
     test_Args this)
 {
     char *argv[] = {"ab", NULL};
-    corto_ll atMostOnce, atLeastOnce;
+    ut_ll atMostOnce, atLeastOnce;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -610,9 +610,9 @@ void test_Args_tc_matchOptionalOneArg(
 
     test_assert(atMostOnce == NULL);
     test_assert(atLeastOnce != NULL);
-    test_assert(corto_ll_count(atLeastOnce) == 1);
+    test_assert(ut_ll_count(atLeastOnce) == 1);
 
-    test_assert(!strcmp(corto_ll_get(atLeastOnce, 0), "ab"));
+    test_assert(!strcmp(ut_ll_get(atLeastOnce, 0), "ab"));
 
     corto_argclean(data);
 
@@ -622,7 +622,7 @@ void test_Args_tc_matchOptionalWithOtherArgs(
     test_Args this)
 {
     char *argv[] = {"ab", "other", NULL};
-    corto_ll atMostOnce, atLeastOnce, other;
+    ut_ll atMostOnce, atLeastOnce, other;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -640,11 +640,11 @@ void test_Args_tc_matchOptionalWithOtherArgs(
     test_assert(atMostOnce == NULL);
     test_assert(atLeastOnce != NULL);
 
-    test_assert(corto_ll_count(other) == 1);
-    test_assert(corto_ll_count(atLeastOnce) == 1);
+    test_assert(ut_ll_count(other) == 1);
+    test_assert(ut_ll_count(atLeastOnce) == 1);
 
-    test_assert(!strcmp(corto_ll_get(other, 0), "other"));
-    test_assert(!strcmp(corto_ll_get(atLeastOnce, 0), "ab"));
+    test_assert(!strcmp(ut_ll_get(other, 0), "other"));
+    test_assert(!strcmp(ut_ll_get(atLeastOnce, 0), "ab"));
 
     corto_argclean(data);
 
@@ -654,7 +654,7 @@ void test_Args_tc_matchPattern(
     test_Args this)
 {
     char *argv[] = {"abcd", "bacd", NULL};
-    corto_ll args;
+    ut_ll args;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -667,10 +667,10 @@ void test_Args_tc_matchPattern(
     test_assert(data != NULL);
 
     test_assert(args != NULL);
-    test_assert(corto_ll_count(args) == 2);
+    test_assert(ut_ll_count(args) == 2);
 
-    test_assert(!strcmp(corto_ll_get(args, 0), "abcd"));
-    test_assert(!strcmp(corto_ll_get(args, 1), "bacd"));
+    test_assert(!strcmp(ut_ll_get(args, 0), "abcd"));
+    test_assert(!strcmp(ut_ll_get(args, 1), "bacd"));
 
     corto_argclean(data);
 
@@ -680,7 +680,7 @@ void test_Args_tc_matchPublish(
     test_Args this)
 {
     char *argv[] = {"publish", "MyApp", "major", "--notag", NULL};
-    corto_ll notag, dirs, majorarg, minorarg, patcharg;
+    ut_ll notag, dirs, majorarg, minorarg, patcharg;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -703,7 +703,7 @@ void test_Args_tc_matchPublish(
     test_assert(patcharg == NULL);
 
     test_assert(dirs != NULL);
-    test_assert(!strcmp(corto_ll_get(dirs, 0), "MyApp"));
+    test_assert(!strcmp(ut_ll_get(dirs, 0), "MyApp"));
 
     corto_argclean(data);
 
@@ -713,7 +713,7 @@ void test_Args_tc_matchPublishNoProject(
     test_Args this)
 {
     char *argv[] = {"publish", "major", "--notag", NULL};
-    corto_ll notag, dirs, majorarg, minorarg, patcharg;
+    ut_ll notag, dirs, majorarg, minorarg, patcharg;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -744,7 +744,7 @@ void test_Args_tc_matchShell(
     test_Args this)
 {
     char *argv[] = {"shell", "-p", "corto/idl", "test.cx", "-d", "test2.cx", NULL};
-    corto_ll pp, d, load;
+    ut_ll pp, d, load;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -760,17 +760,17 @@ void test_Args_tc_matchShell(
     test_assert(data != NULL);
 
     test_assert(pp != NULL);
-    test_assert(corto_ll_count(pp) == 1);
-    test_assert(!strcmp(corto_ll_get(pp, 0), "corto/idl"));
+    test_assert(ut_ll_count(pp) == 1);
+    test_assert(!strcmp(ut_ll_get(pp, 0), "corto/idl"));
 
     test_assert(d != NULL);
-    test_assert(corto_ll_count(d) == 1);
-    test_assert(!strcmp(corto_ll_get(d, 0), "-d"));
+    test_assert(ut_ll_count(d) == 1);
+    test_assert(!strcmp(ut_ll_get(d, 0), "-d"));
 
     test_assert(load != NULL);
-    test_assert(corto_ll_count(load) == 2);
-    test_assert(!strcmp(corto_ll_get(load, 0), "test.cx"));
-    test_assert(!strcmp(corto_ll_get(load, 1), "test2.cx"));
+    test_assert(ut_ll_count(load) == 2);
+    test_assert(!strcmp(ut_ll_get(load, 0), "test.cx"));
+    test_assert(!strcmp(ut_ll_get(load, 1), "test2.cx"));
 
     corto_argclean(data);
 
@@ -780,7 +780,7 @@ void test_Args_tc_matchSingle(
     test_Args this)
 {
     char *argv[] = {"abc", NULL};
-    corto_ll abc;
+    ut_ll abc;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -793,9 +793,9 @@ void test_Args_tc_matchSingle(
     test_assert(data != NULL);
 
     test_assert(abc != NULL);
-    test_assert(corto_ll_count(abc) == 1);
+    test_assert(ut_ll_count(abc) == 1);
 
-    test_assert(!strcmp(corto_ll_get(abc, 0), "abc"));
+    test_assert(!strcmp(ut_ll_get(abc, 0), "abc"));
 
     corto_argclean(data);
 
@@ -805,7 +805,7 @@ void test_Args_tc_matchSingleArg(
     test_Args this)
 {
     char *argv[] = {"--option", "arg", NULL};
-    corto_ll options, args;
+    ut_ll options, args;
 
     corto_argdata *data = corto_argparse(
       argv,
@@ -818,13 +818,13 @@ void test_Args_tc_matchSingleArg(
     test_assert(data != NULL);
 
     test_assert(options != NULL);
-    test_assert(corto_ll_count(options) == 1);
+    test_assert(ut_ll_count(options) == 1);
 
     test_assert(args != NULL);
-    test_assert(corto_ll_count(args) == 1);
+    test_assert(ut_ll_count(args) == 1);
 
-    test_assert(!strcmp(corto_ll_get(options, 0), "--option"));
-    test_assert(!strcmp(corto_ll_get(args, 0), "arg"));
+    test_assert(!strcmp(ut_ll_get(options, 0), "--option"));
+    test_assert(!strcmp(ut_ll_get(args, 0), "arg"));
 
     corto_argclean(data);
 
