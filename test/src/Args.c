@@ -425,8 +425,8 @@ void test_Args_tc_matchErr(
     );
 
     test_assert(data == NULL);
-    test_assert(corto_lasterr() != NULL);
-    test_assert(!strcmp(corto_lasterr(), "unknown option 'abc'"));
+    test_assert(ut_lasterr() != NULL);
+    test_assert(!strcmp(ut_lasterr(), "unknown option 'abc'"));
 
 }
 
@@ -554,7 +554,7 @@ void test_Args_tc_matchNone(
     );
 
     test_assert(data != NULL);
-    test_assert(corto_lasterr() == NULL);
+    test_assert(ut_lasterr() == NULL);
 
     corto_argclean(data);
 
